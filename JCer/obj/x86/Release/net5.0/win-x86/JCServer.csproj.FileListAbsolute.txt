@@ -235,3 +235,6 @@ D:\Work\Program\JCer\JCer\obj\x86\Release\net5.0\win-x86\ref\JCServer.dll
 D:\Work\Program\JCer\JCer\obj\x86\Release\net5.0\win-x86\JCServer.pdb
 D:\Work\Program\JCer\JCer\obj\x86\Release\net5.0\win-x86\JCServer.genruntimeconfig.cache
 D:\Work\Program\JCer\JCer\obj\x86\Release\net5.0\win-x86\JCServer.csprojAssemblyReference.cache
+D:\Work\Program\JCer\JCer\bin\Release\net5.0\win-x86\Microsoft.Win32.SystemEvents.dll
+D:\Work\Program\JCer\JCer\bin\Release\net5.0\win-x86\System.Drawing.Common.dll
+D:\Work\Program\JCer\JCer\bin\Release\net5.0\win-x86\System.Windows.Extensions.dll

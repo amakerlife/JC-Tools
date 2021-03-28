@@ -1,9 +1,13 @@
 {
   "version": 2,
-  "dgSpecHash": "Hyeoz9bvi78eQ2L4sLqd+1v4yKnB9AIxQfl4IY87ag9mtlDj4xXAIo4jyQq9S9CjE0TDLWR2zcINQHSv5KFECQ==",
+  "dgSpecHash": "2laUkMm0HW/2Ah2tX/8amHj+5svVt1/CJFqnu6/1eifREmoXrC6xb/NEErM35AnYdTJvqDEpTn1rthku+MTcwg==",
   "success": true,
   "projectFilePath": "D:\\Work\\Program\\JCer\\JCer\\JCServer.csproj",
   "expectedPackageFiles": [
+    "C:\\Users\\陈天健\\.nuget\\packages\\microsoft.netcore.platforms\\5.0.0\\microsoft.netcore.platforms.5.0.0.nupkg.sha512",
+    "C:\\Users\\陈天健\\.nuget\\packages\\microsoft.win32.systemevents\\5.0.0\\microsoft.win32.systemevents.5.0.0.nupkg.sha512",
+    "C:\\Users\\陈天健\\.nuget\\packages\\system.drawing.common\\5.0.0\\system.drawing.common.5.0.0.nupkg.sha512",
+    "C:\\Users\\陈天健\\.nuget\\packages\\system.windows.extensions\\5.0.0\\system.windows.extensions.5.0.0.nupkg.sha512",
     "C:\\Users\\陈天健\\.nuget\\packages\\microsoft.netcore.app.host.win-x86\\5.0.2\\microsoft.netcore.app.host.win-x86.5.0.2.nupkg.sha512"
   ],
   "logs": []

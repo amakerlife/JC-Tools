@@ -1,9 +1,13 @@
 {
   "version": 2,
-  "dgSpecHash": "oPrQ0Of6YfS2XB2pGfW9xFXXBfgXpjEBCFAAUEKc6Tp5KxV9aIYgFr0OwjbKn4jpsfxg1Fsfzpuc0zgDjDgMIQ==",
+  "dgSpecHash": "HEukP0F9bp5Dhht7H3098z380+oUAv1hG7+wPBdrxjuSJGvrun1sIJQaqAqSXTPGo8L3s5myG/Cc6GTn+c6ntg==",
   "success": true,
   "projectFilePath": "D:\\Work\\Program\\JCer\\JCer\\JCServer.csproj",
   "expectedPackageFiles": [
+    "C:\\Users\\陈天健\\.nuget\\packages\\microsoft.netcore.platforms\\5.0.0\\microsoft.netcore.platforms.5.0.0.nupkg.sha512",
+    "C:\\Users\\陈天健\\.nuget\\packages\\microsoft.win32.systemevents\\5.0.0\\microsoft.win32.systemevents.5.0.0.nupkg.sha512",
+    "C:\\Users\\陈天健\\.nuget\\packages\\system.drawing.common\\5.0.0\\system.drawing.common.5.0.0.nupkg.sha512",
+    "C:\\Users\\陈天健\\.nuget\\packages\\system.windows.extensions\\5.0.0\\system.windows.extensions.5.0.0.nupkg.sha512",
     "C:\\Users\\陈天健\\.nuget\\packages\\microsoft.netcore.app.runtime.win-x86\\5.0.2\\microsoft.netcore.app.runtime.win-x86.5.0.2.nupkg.sha512",
     "C:\\Users\\陈天健\\.nuget\\packages\\microsoft.windowsdesktop.app.runtime.win-x86\\5.0.2\\microsoft.windowsdesktop.app.runtime.win-x86.5.0.2.nupkg.sha512",
     "C:\\Users\\陈天健\\.nuget\\packages\\microsoft.aspnetcore.app.runtime.win-x86\\5.0.2\\microsoft.aspnetcore.app.runtime.win-x86.5.0.2.nupkg.sha512",

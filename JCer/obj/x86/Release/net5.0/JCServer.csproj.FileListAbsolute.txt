@@ -21,3 +21,11 @@ D:\Work\Program\JCer\JCer\bin\Release\net5.0\JCServer.runtimeconfig.dev.json
 D:\Work\Program\JCer\JCer\bin\Release\net5.0\JCServer.dll
 D:\Work\Program\JCer\JCer\bin\Release\net5.0\ref\JCServer.dll
 D:\Work\Program\JCer\JCer\bin\Release\net5.0\JCServer.pdb
+D:\Work\Program\JCer\JCer\bin\Release\net5.0\Microsoft.Win32.SystemEvents.dll
+D:\Work\Program\JCer\JCer\bin\Release\net5.0\System.Drawing.Common.dll
+D:\Work\Program\JCer\JCer\bin\Release\net5.0\System.Windows.Extensions.dll
+D:\Work\Program\JCer\JCer\bin\Release\net5.0\runtimes\win\lib\netcoreapp3.0\Microsoft.Win32.SystemEvents.dll
+D:\Work\Program\JCer\JCer\bin\Release\net5.0\runtimes\unix\lib\netcoreapp3.0\System.Drawing.Common.dll
+D:\Work\Program\JCer\JCer\bin\Release\net5.0\runtimes\win\lib\netcoreapp3.0\System.Drawing.Common.dll
+D:\Work\Program\JCer\JCer\bin\Release\net5.0\runtimes\win\lib\netcoreapp3.0\System.Windows.Extensions.dll
+D:\Work\Program\JCer\JCer\obj\x86\Release\net5.0\JCServer.csproj.CopyComplete

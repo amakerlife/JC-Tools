@@ -13,3 +13,4 @@ D:\Work\Program\JCer\JCClient\obj\x86\Release\net5.0\JCClient.dll
 D:\Work\Program\JCer\JCClient\obj\x86\Release\net5.0\ref\JCClient.dll
 D:\Work\Program\JCer\JCClient\obj\x86\Release\net5.0\JCClient.pdb
 D:\Work\Program\JCer\JCClient\obj\x86\Release\net5.0\JCClient.genruntimeconfig.cache
+D:\Work\Program\JCer\JCClient\obj\x86\Release\net5.0\JCClient.csprojAssemblyReference.cache

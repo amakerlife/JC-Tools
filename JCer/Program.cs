@@ -8,6 +8,8 @@ using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
+using System.Media;
+using System.Collections.Generic;
 
 namespace JCer
 {
@@ -56,14 +58,17 @@ namespace JCer
         [DllImport("user32.dll")]
         public static extern void keybd_event(byte bVk, byte bScan, int dwFlags, int dwExtraInfo);
 
+        private static Dictionary<string, SoundPlayer> player = new Dictionary<string, SoundPlayer>();
+
         static void RequestConnect(object o)
         {
-            try
-            {
-                Socket accept = (Socket)o;
 
-                string recv = Recv(accept);
-                while (recv != "quit")
+            Socket accept = (Socket)o;
+
+            string recv = Recv(accept);
+            while (recv != "quit")
+            {
+                try
                 {
                     InforProc m = new InforProc(recv);
                     if (m[0] == "mouse")
@@ -80,6 +85,8 @@ namespace JCer
                                 break;
                         }
                     }
+
+                    // 注意，keybd_event 仅在 Windows 上受支持
                     else if (m[0] == "key")
                     {
                         if (m[1] == "down" || m[1] == "up" || m[1] == "push" && m.Count >= 3)
@@ -117,6 +124,113 @@ namespace JCer
                         if (!Send(accept, "$ result = ok"))
                             break;
                     }
+
+                    // 注意，System.Media.SoundPlayer 仅在 Windows 上受支持，若要在 Linux 或其他系统上使用，请删除或使用其他库来代替 System.Windows.Extensions (NuGet包)
+                    else if (m[0] == "media")
+                    {
+                        if (m[1] == "create" && m.Count == 4)
+                        {
+                            if (player.ContainsKey(m[2]))
+                            {
+                                if (!Send(accept, "$ \"" + m[2] + "\" was exist :("))
+                                    break;
+                            }
+                            else
+                            {
+                                string result = "$ result = ok";
+                                try
+                                {
+                                    player.Add(m[2], new SoundPlayer(m[3])); //创建至字典
+                                }
+                                catch (Exception e) { result = "$ error = " + e.Message; }
+                                if (!Send(accept, result))
+                                    break;
+                            }
+                        }
+                        else if (m[1] == "timeout" && m.Count == 3)
+                        {
+                            if (player.ContainsKey(m[2]))
+                            {
+                                string result = "$ result = ok";
+                                try
+                                {
+                                    player[m[2]].LoadTimeout = int.Parse(m[2]);
+                                }
+                                catch (Exception e) { result = "$ error = " + e.Message; }
+                                if (!Send(accept, result))
+                                    break;
+                            }
+                            else if (!Send(accept, "$ can't find \"" + m[2] + "\" :("))
+                                break;
+                        }
+                        else if (m[1] == "load" && m.Count == 3)
+                        {
+                            if (player.ContainsKey(m[2]))
+                            {
+                                string result = "$ result = ok";
+                                try
+                                {
+                                    player[m[2]].Load();
+                                }
+                                catch (Exception e) { result = "$ error = " + e.Message; }
+                                if (!Send(accept, result))
+                                    break;
+                            }
+                            else if (!Send(accept, "$ can't find \"" + m[2] + "\" :("))
+                                break;
+                        }
+                        else if (m[1] == "play" && m.Count == 3)
+                        {
+                            if (player.ContainsKey(m[2]))
+                            {
+                                string result = "$ result = ok";
+                                try
+                                {
+                                    player[m[2]].PlayLooping();
+                                }
+                                catch (Exception e) { result = "$ error = " + e.Message; }
+                                if (!Send(accept, result))
+                                    break;
+                            }
+                            else if (!Send(accept, "$ can't find \"" + m[2] + "\" :("))
+                                break;
+                        }
+                        else if (m[1] == "stop" && m.Count == 3)
+                        {
+                            if (player.ContainsKey(m[2]))
+                            {
+                                string result = "$ result = ok";
+                                try
+                                {
+                                    player[m[2]].Stop();
+                                }
+                                catch (Exception e) { result = "$ error = " + e.Message; }
+                                if (!Send(accept, result))
+                                    break;
+                            }
+                            else if (!Send(accept, "$ can't find \"" + m[2] + "\" :("))
+                                break;
+                        }
+                        else if (m[1] == "delete" && m.Count == 3)
+                        {
+                            if (player.ContainsKey(m[2]))
+                            {
+                                string result = "$ result = ok";
+                                player[m[2]].Dispose();
+                                player.Remove(m[2]);
+                                if (!Send(accept, result))
+                                    break;
+                            }
+                            else if (!Send(accept, "$ can't find \"" + m[2] + "\" :("))
+                                break;
+                        }
+                        else
+                        {
+                            if (!Send(accept, "$ error = unrecognized command"))
+                                break;
+                        }
+                    }
+
                     else if (m[0] == "download" && m.Count == 4)
                     {
                         /* 格式
@@ -149,8 +263,9 @@ namespace JCer
 
                     recv = Recv(accept);
                 }
+                catch { }
+
             }
-            catch { }
         }
 
         static void Request()
