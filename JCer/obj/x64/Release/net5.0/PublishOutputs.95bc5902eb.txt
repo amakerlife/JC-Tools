@@ -1,0 +1,5 @@
+D:\Work\Program\JCer\JCer\bin\x64\Release\net5.0\publish\JCServer.exe
+D:\Work\Program\JCer\JCer\bin\x64\Release\net5.0\publish\JCServer.dll
+D:\Work\Program\JCer\JCer\bin\x64\Release\net5.0\publish\JCServer.deps.json
+D:\Work\Program\JCer\JCer\bin\x64\Release\net5.0\publish\JCServer.runtimeconfig.json
+D:\Work\Program\JCer\JCer\bin\x64\Release\net5.0\publish\JCServer.pdb

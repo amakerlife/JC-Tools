@@ -1,0 +1,10 @@
+{
+  "version": 2,
+  "dgSpecHash": "Hyeoz9bvi78eQ2L4sLqd+1v4yKnB9AIxQfl4IY87ag9mtlDj4xXAIo4jyQq9S9CjE0TDLWR2zcINQHSv5KFECQ==",
+  "success": true,
+  "projectFilePath": "D:\\Work\\Program\\JCer\\JCer\\JCServer.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\陈天健\\.nuget\\packages\\microsoft.netcore.app.host.win-x86\\5.0.2\\microsoft.netcore.app.host.win-x86.5.0.2.nupkg.sha512"
+  ],
+  "logs": []
+}

@@ -1,0 +1,12 @@
+D:\Work\Program\JCer\JCClient\bin\x64\Release\netcoreapp3.1\JCClient.exe
+D:\Work\Program\JCer\JCClient\bin\x64\Release\netcoreapp3.1\JCClient.deps.json
+D:\Work\Program\JCer\JCClient\bin\x64\Release\netcoreapp3.1\JCClient.runtimeconfig.json
+D:\Work\Program\JCer\JCClient\bin\x64\Release\netcoreapp3.1\JCClient.runtimeconfig.dev.json
+D:\Work\Program\JCer\JCClient\bin\x64\Release\netcoreapp3.1\JCClient.dll
+D:\Work\Program\JCer\JCClient\bin\x64\Release\netcoreapp3.1\JCClient.pdb
+D:\Work\Program\JCer\JCClient\obj\x64\Release\netcoreapp3.1\JCClient.AssemblyInfoInputs.cache
+D:\Work\Program\JCer\JCClient\obj\x64\Release\netcoreapp3.1\JCClient.AssemblyInfo.cs
+D:\Work\Program\JCer\JCClient\obj\x64\Release\netcoreapp3.1\JCClient.csproj.CoreCompileInputs.cache
+D:\Work\Program\JCer\JCClient\obj\x64\Release\netcoreapp3.1\JCClient.dll
+D:\Work\Program\JCer\JCClient\obj\x64\Release\netcoreapp3.1\JCClient.pdb
+D:\Work\Program\JCer\JCClient\obj\x64\Release\netcoreapp3.1\JCClient.genruntimeconfig.cache

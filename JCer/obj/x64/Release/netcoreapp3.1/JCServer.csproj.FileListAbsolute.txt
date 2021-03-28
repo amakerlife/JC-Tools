@@ -1,0 +1,13 @@
+D:\Work\Program\JCer\JCer\bin\x64\Release\netcoreapp3.1\JCServer.exe
+D:\Work\Program\JCer\JCer\bin\x64\Release\netcoreapp3.1\JCServer.deps.json
+D:\Work\Program\JCer\JCer\bin\x64\Release\netcoreapp3.1\JCServer.runtimeconfig.json
+D:\Work\Program\JCer\JCer\bin\x64\Release\netcoreapp3.1\JCServer.runtimeconfig.dev.json
+D:\Work\Program\JCer\JCer\bin\x64\Release\netcoreapp3.1\JCServer.dll
+D:\Work\Program\JCer\JCer\bin\x64\Release\netcoreapp3.1\JCServer.pdb
+D:\Work\Program\JCer\JCer\obj\x64\Release\netcoreapp3.1\JCServer.AssemblyInfoInputs.cache
+D:\Work\Program\JCer\JCer\obj\x64\Release\netcoreapp3.1\JCServer.AssemblyInfo.cs
+D:\Work\Program\JCer\JCer\obj\x64\Release\netcoreapp3.1\JCServer.csproj.CoreCompileInputs.cache
+D:\Work\Program\JCer\JCer\obj\x64\Release\netcoreapp3.1\JCServer.dll
+D:\Work\Program\JCer\JCer\obj\x64\Release\netcoreapp3.1\JCServer.pdb
+D:\Work\Program\JCer\JCer\obj\x64\Release\netcoreapp3.1\JCServer.genruntimeconfig.cache
+D:\Work\Program\JCer\JCer\obj\x64\Release\netcoreapp3.1\JCServer.csprojAssemblyReference.cache

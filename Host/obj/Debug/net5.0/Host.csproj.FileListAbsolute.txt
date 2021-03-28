@@ -1,0 +1,16 @@
+D:\Work\Program\JCer\Host\bin\Debug\net5.0\Host.exe
+D:\Work\Program\JCer\Host\bin\Debug\net5.0\Host.deps.json
+D:\Work\Program\JCer\Host\bin\Debug\net5.0\Host.runtimeconfig.json
+D:\Work\Program\JCer\Host\bin\Debug\net5.0\Host.runtimeconfig.dev.json
+D:\Work\Program\JCer\Host\bin\Debug\net5.0\Host.dll
+D:\Work\Program\JCer\Host\bin\Debug\net5.0\ref\Host.dll
+D:\Work\Program\JCer\Host\bin\Debug\net5.0\Host.pdb
+D:\Work\Program\JCer\Host\obj\Debug\net5.0\Host.csprojAssemblyReference.cache
+D:\Work\Program\JCer\Host\obj\Debug\net5.0\Host.GeneratedMSBuildEditorConfig.editorconfig
+D:\Work\Program\JCer\Host\obj\Debug\net5.0\Host.AssemblyInfoInputs.cache
+D:\Work\Program\JCer\Host\obj\Debug\net5.0\Host.AssemblyInfo.cs
+D:\Work\Program\JCer\Host\obj\Debug\net5.0\Host.csproj.CoreCompileInputs.cache
+D:\Work\Program\JCer\Host\obj\Debug\net5.0\Host.dll
+D:\Work\Program\JCer\Host\obj\Debug\net5.0\ref\Host.dll
+D:\Work\Program\JCer\Host\obj\Debug\net5.0\Host.pdb
+D:\Work\Program\JCer\Host\obj\Debug\net5.0\Host.genruntimeconfig.cache

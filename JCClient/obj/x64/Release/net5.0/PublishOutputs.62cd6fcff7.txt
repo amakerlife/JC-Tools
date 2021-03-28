@@ -1,0 +1,5 @@
+D:\Work\Program\JCer\JCClient\bin\x64\Release\net5.0\publish\JCClient.exe
+D:\Work\Program\JCer\JCClient\bin\x64\Release\net5.0\publish\JCClient.dll
+D:\Work\Program\JCer\JCClient\bin\x64\Release\net5.0\publish\JCClient.deps.json
+D:\Work\Program\JCer\JCClient\bin\x64\Release\net5.0\publish\JCClient.runtimeconfig.json
+D:\Work\Program\JCer\JCClient\bin\x64\Release\net5.0\publish\JCClient.pdb
