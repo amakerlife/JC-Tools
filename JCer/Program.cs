@@ -243,9 +243,9 @@ namespace JCer
                             while (totalLen > 0)
                             {
                                 byte[] file = new byte[4 * 1024]; //每次接收4MB
-                                int recvLen = accept.Receive(file, file.Length, 0);
+                                int recvLen = accept.Receive(file, totalLen < 4*1024 ? (int)totalLen : 4*1024, 0);
                                 if (recvLen <= 0) break;
-                                Task t = w.WriteAsync(file, 0, file.Length);
+                                Task t = w.WriteAsync(file, 0, recvLen);
                                 while (!t.IsCompleted) ;
 
                                 totalLen -= recvLen;
