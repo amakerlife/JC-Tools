@@ -49,3 +49,9 @@ _其中，[ip]为要JC的设备的Ip Address，[name]为要JC的设备的主机�
 | media play name          | 播放名为name的Sound（如未加载则先加载该Sound） | media play m |
 | media stop name          | 停止播放名为name的Sound | media stop m |
 | media delete name        | 删除名为name的Sound | media delete m |
+
+# FAQs
+
+Q1: 运行 `JC-Tools` 提示 `failed to load the dll from [...] HRESULT 0x00000001` 并崩溃？
+
+A1: 安装 _KB2533623 补丁_ 即可。
