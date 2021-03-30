@@ -221,7 +221,6 @@ D:\Work\Program\JCer\JCClient\bin\Release\net5.0\win-x86\dbgshim.dll
 D:\Work\Program\JCer\JCClient\bin\Release\net5.0\win-x86\hostfxr.dll
 D:\Work\Program\JCer\JCClient\bin\Release\net5.0\win-x86\hostpolicy.dll
 D:\Work\Program\JCer\JCClient\bin\Release\net5.0\win-x86\mscordaccore.dll
-D:\Work\Program\JCer\JCClient\bin\Release\net5.0\win-x86\mscordaccore_x86_x86_5.0.220.61120.dll
 D:\Work\Program\JCer\JCClient\bin\Release\net5.0\win-x86\mscordbi.dll
 D:\Work\Program\JCer\JCClient\bin\Release\net5.0\win-x86\mscorrc.dll
 D:\Work\Program\JCer\JCClient\bin\Release\net5.0\win-x86\ucrtbase.dll
@@ -235,3 +234,4 @@ D:\Work\Program\JCer\JCClient\obj\x86\Release\net5.0\win-x86\ref\JCClient.dll
 D:\Work\Program\JCer\JCClient\obj\x86\Release\net5.0\win-x86\JCClient.pdb
 D:\Work\Program\JCer\JCClient\obj\x86\Release\net5.0\win-x86\JCClient.genruntimeconfig.cache
 D:\Work\Program\JCer\JCClient\obj\x86\Release\net5.0\win-x86\JCClient.csprojAssemblyReference.cache
+D:\Work\Program\JCer\JCClient\bin\Release\net5.0\win-x86\mscordaccore_x86_x86_5.0.421.11614.dll

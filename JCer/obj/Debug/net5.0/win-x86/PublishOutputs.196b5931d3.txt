@@ -1,0 +1,6 @@
+D:\Work\Program\JCer\JCer\bin\publish\net5.0\JCServer.pdb
+D:\Work\Program\JCer\JCer\bin\publish\net5.0\clrcompression.dll
+D:\Work\Program\JCer\JCer\bin\publish\net5.0\clrjit.dll
+D:\Work\Program\JCer\JCer\bin\publish\net5.0\coreclr.dll
+D:\Work\Program\JCer\JCer\bin\publish\net5.0\mscordaccore.dll
+D:\Work\Program\JCer\JCer\bin\publish\net5.0\JCServer.exe

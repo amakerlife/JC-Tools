@@ -1,13 +1,12 @@
 {
   "version": 2,
-  "dgSpecHash": "trk2wMkAtwZZab5H4FnUwsgZEgqRiz/RJVBnruR5HHjKflNMbrt150O+O3cLYs5x27lnRGPR0vM51hh/wEPi+w==",
+  "dgSpecHash": "p3/mAS1vnVdJNI13jOMS/LBIQCSSS8QFPcEslePBwgGV9JGtZAXT34BL3BreDZqrUY25GiOS5NI00gm3CfNqxQ==",
   "success": true,
   "projectFilePath": "D:\\Work\\Program\\JCer\\Host\\Host.csproj",
   "expectedPackageFiles": [
-    "C:\\Users\\陈天健\\.nuget\\packages\\microsoft.netcore.app.runtime.win-x86\\5.0.2\\microsoft.netcore.app.runtime.win-x86.5.0.2.nupkg.sha512",
-    "C:\\Users\\陈天健\\.nuget\\packages\\microsoft.windowsdesktop.app.runtime.win-x86\\5.0.2\\microsoft.windowsdesktop.app.runtime.win-x86.5.0.2.nupkg.sha512",
-    "C:\\Users\\陈天健\\.nuget\\packages\\microsoft.aspnetcore.app.runtime.win-x86\\5.0.2\\microsoft.aspnetcore.app.runtime.win-x86.5.0.2.nupkg.sha512",
-    "C:\\Users\\陈天健\\.nuget\\packages\\microsoft.netcore.app.host.win-x86\\5.0.2\\microsoft.netcore.app.host.win-x86.5.0.2.nupkg.sha512"
+    "C:\\Users\\陈天健\\.nuget\\packages\\microsoft.netcore.app.runtime.win-x86\\5.0.4\\microsoft.netcore.app.runtime.win-x86.5.0.4.nupkg.sha512",
+    "C:\\Users\\陈天健\\.nuget\\packages\\microsoft.windowsdesktop.app.runtime.win-x86\\5.0.4\\microsoft.windowsdesktop.app.runtime.win-x86.5.0.4.nupkg.sha512",
+    "C:\\Users\\陈天健\\.nuget\\packages\\microsoft.aspnetcore.app.runtime.win-x86\\5.0.4\\microsoft.aspnetcore.app.runtime.win-x86.5.0.4.nupkg.sha512"
   ],
   "logs": []
 }

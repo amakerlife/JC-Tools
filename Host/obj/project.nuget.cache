@@ -1,10 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "7lroGwkORbqTA/CRNZ9KS4nMCAiebeVQf0VxnB+MaPJiNdoox0F37K06LAhROJV1bj6zN7bHM3bwhIK5nPjlyg==",
+  "dgSpecHash": "DmyN7zobh50penvYGaJiaIQGNQH/cDpMBfhQEYizFBtkS5QhlHEBrX/1+rqIlKpW/8cxB9F8cB2VPdmlwlzkTQ==",
   "success": true,
   "projectFilePath": "D:\\Work\\Program\\JCer\\Host\\Host.csproj",
-  "expectedPackageFiles": [
-    "C:\\Users\\陈天健\\.nuget\\packages\\microsoft.netcore.app.host.win-x64\\5.0.2\\microsoft.netcore.app.host.win-x64.5.0.2.nupkg.sha512"
-  ],
+  "expectedPackageFiles": [],
   "logs": []
 }

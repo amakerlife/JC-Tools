@@ -7,11 +7,13 @@
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <description>Package Description</description>
     <dependencies>
-      <group targetFramework="net5.0" />
+      <group targetFramework="net5.0">
+        <dependency id="System.Windows.Extensions" version="5.0.0" exclude="Build,Analyzers" />
+      </group>
     </dependencies>
   </metadata>
   <files>
-    <file src="D:\Work\Program\JCer\JCer\bin\x64\Release\net5.0\JCServer.runtimeconfig.json" target="lib\net5.0\JCServer.runtimeconfig.json" />
-    <file src="D:\Work\Program\JCer\JCer\bin\x64\Release\net5.0\JCServer.dll" target="lib\net5.0\JCServer.dll" />
+    <file src="D:\Work\Program\JCer\JCer\bin\Release\net5.0\JCServer.runtimeconfig.json" target="lib\net5.0\JCServer.runtimeconfig.json" />
+    <file src="D:\Work\Program\JCer\JCer\bin\Release\net5.0\JCServer.dll" target="lib\net5.0\JCServer.dll" />
   </files>
 </package>
