@@ -1,7 +1,7 @@
-﻿using JCServer;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Net;
 using System.Net.Sockets;
 using System.Runtime.InteropServices;
@@ -13,30 +13,10 @@ namespace JCClient
 {
     class Program
     {
-        static string Recv(Socket s)
-        {
-            try
-            {
-                byte[] bytes = new byte[4 * 1024]; //4MB
-                int len = s.Receive(bytes, bytes.Length, 0);
-                return Encoding.UTF8.GetString(bytes, 0, len);
-            }
-            catch (Exception e)
-            {
-                OutputErrorMessage(e);
-            }
-            return "quit";
-        }
-
-        static void Send(Socket s, string message)
-        {
-            s.Send(Encoding.UTF8.GetBytes(message), 0);
-        }
-
         static void OutputErrorMessage(Exception e)
         {
             Console.ForegroundColor = ConsoleColor.Red;
-            Console.WriteLine("$ error : " + e.Message);
+            Console.WriteLine("$ error : " + e.Message + "\n");
             Console.ForegroundColor = ConsoleColor.White;
         }
 
@@ -56,29 +36,67 @@ namespace JCClient
 
         static void OutputHeader()
         {
+            Console.ForegroundColor = ConsoleColor.DarkYellow;
+            Console.Write("JC-Tools 2.0");
             Console.ForegroundColor = ConsoleColor.Green;
-            Console.Write("Welcome to ");
-            Console.ForegroundColor = ConsoleColor.Yellow;
-            Console.WriteLine("JCClient");
+            Console.WriteLine(" by Return");
+            Console.ForegroundColor = ConsoleColor.Gray;
+            Console.Write("Report ");
+            Console.ForegroundColor = ConsoleColor.Red;
+            Console.Write("bugs ");
+            Console.ForegroundColor = ConsoleColor.Gray;
+            Console.Write("to ");
             Console.ForegroundColor = ConsoleColor.Cyan;
-            Console.Write("\nIf you want to know the ");
-            Console.ForegroundColor = ConsoleColor.Yellow;
-            Console.Write("JCServer");
-            Console.ForegroundColor = ConsoleColor.Cyan;
-            Console.Write("\'s ip, you'd input ");
-            Console.ForegroundColor = ConsoleColor.Yellow;
-            Console.Write("\"./Host\"");
-            Console.ForegroundColor = ConsoleColor.Cyan;
-            Console.Write("(Linux) or ");
-            Console.ForegroundColor = ConsoleColor.Yellow;
-            Console.Write("\"Host.exe\"");
-            Console.ForegroundColor = ConsoleColor.Cyan;
-            Console.Write("(Windows).\nYou'd better in the same local area network as the ");
-            Console.ForegroundColor = ConsoleColor.Yellow;
-            Console.WriteLine("JCServer\n");
+            Console.Write("https://gitee.com/graph-lc/jc-tools/issues");
+            Console.ForegroundColor = ConsoleColor.White;
+            Console.WriteLine(".\n");
         }
 
         static public Dictionary<string, Socket> connectList = new Dictionary<string, Socket>();
+
+        private class UploadFileToSocket : IDisposable
+        {
+            private FileStream file = null;
+
+            public UploadFileToSocket(string fileName) => file = new FileStream(fileName, FileMode.Open, FileAccess.Read);
+
+            ~UploadFileToSocket() => file.Close();
+
+            public void Dispose() => file.Close();
+
+            public byte[] Handle()
+            {
+                byte[] bytes = new byte[4 * 1024 * 1024]; //每次发送4MB
+                long position = file.Position;
+                Task t = file.ReadAsync(bytes, 0, bytes.Length);
+                t.Wait();
+                return bytes.Take(file.Length - position > 4 * 1024l * 1024l ? 4 * 1024 * 1024 : (int)(file.Length - position)).ToArray();
+            }
+            
+            public long Length
+            {
+                get
+                {
+                    return file.Length;
+                }
+            }
+        }
+
+        private class DownloadFileFromSocket :IDisposable
+        {
+            private FileStream file = null;
+            
+            public DownloadFileFromSocket(string filename) => file = new FileStream(filename, FileMode.Create, FileAccess.Write);
+            ~DownloadFileFromSocket() => file.Close();
+
+            public void Dispose() => file.Close();
+
+            public void Handle(byte[] message)
+            {
+                Task t = file.WriteAsync(message, 0, message.Length);
+                t.Wait();
+            }
+        }
 
         /// <summary>
         /// 将文件从本地上传到Server
@@ -88,22 +106,12 @@ namespace JCClient
         /// <param name="upPath">上传到Server的路径</param>
         static void Upload(Socket s, string srcPath, string upPath)
         {
-            using (FileStream r = new FileStream(srcPath, FileMode.Open, FileAccess.Read))
-            {
-                Send(s, "upload " + r.Length.ToString() + " " + upPath);
-                long len = r.Length;
-                while (len > 0)
-                {
-                    byte[] file = new byte[4 * 1024]; //每次发送4MB
-                    Task t = r.ReadAsync(file, 0, file.Length);
-                    while (!t.IsCompleted) ;
+            TCPSocket.Send(s, "upload \"" + upPath + "\"");
+            TCPSocket.Recv(s); //回调，防止粘包
 
-                    int recvLen = s.Send(file, file.Length, 0);
-                    if (recvLen <= 0) break;
-
-                    len -= recvLen;
-                }
-            }
+            UploadFileToSocket up = new UploadFileToSocket(srcPath);
+            TCPSocket.Send(s, up.Length, up.Handle);
+            up.Dispose();
         }
 
         /// <summary>
@@ -114,64 +122,90 @@ namespace JCClient
         /// <param name="downPath">本地文件路径</param>
         static void Download(Socket s, string srcPath, string downPath)
         {
-            Send(s, "download " + srcPath);
-
-            long totalLen;
-            try
-            {
-                totalLen = long.Parse(Recv(s));
-            }
-            catch
-            {
-                return;
-            }
-
-            using (FileStream w = new FileStream(downPath, FileMode.Create, FileAccess.Write))
+            TCPSocket.Send(s, "download \"" + srcPath + "\"");
+            if (TCPSocket.Recv(s) != "ok") return;
+            /*using (FileStream w = new FileStream(downPath, FileMode.Create, FileAccess.Write))
             {
                 while (totalLen > 0)
                 {
-                    byte[] file = new byte[4 * 1024]; //每次接收4MB
-                    int recvLen = s.Receive(file, totalLen < 4 * 1024 ? (int)totalLen : 4 * 1024, 0);
+                    byte[] file = new byte[16 * 1024 * 1024]; //每次接收4MB
+                    int recvLen = s.Receive(file, totalLen < 16 * 1024 * 1024 ? (int)totalLen : 16 * 1024 * 1024, 0);
                     if (recvLen <= 0) break;
                     Task t = w.WriteAsync(file, 0, recvLen);
                     while (!t.IsCompleted) ;
 
                     totalLen -= recvLen;
                 }
-            }
+            }*/
 
-            Send(s, "ok");
+            DownloadFileFromSocket down = new DownloadFileFromSocket(downPath);
+            TCPSocket.Recv(s, down.Handle);
+            
+            TCPSocket.Send(s, "ok");
+            down.Dispose();
         }
 
+        /// <summary>
+        /// 截取JCServer的屏幕，并下载到JClient
+        /// </summary>
+        /// <param name="s">JCServer的Socket</param>
+        /// <param name="mode">截图的格式(jpg/png)</param>
+        /// <param name="downPath">本地文件的路径</param>
+        static void Screen(Socket s, string mode, string downPath)
+        {
+            TCPSocket.Send(s, "screen \"" + mode + "\"");
+            DownloadFileFromSocket down = new DownloadFileFromSocket(downPath);
+            TCPSocket.Recv(s, down.Handle);
+            TCPSocket.Send(s, "ok");
+            down.Dispose();
+        }
+
+        /// <summary>
+        /// 匹配命令缩写
+        /// </summary>
+        /// <param name="input">输入的命令</param>
+        /// <param name="command">匹配的命令</param>
+        /// <param name="command2">命令缩写</param>
+        /// <param name="splitLength">命令缩写长度</param>
+        /// <returns></returns>
+        static bool SimpleCommand(string input, string command,string command2="", int splitLength = 1)
+        {
+            return input == command || (command2 != "" && input==command2) || (splitLength > 0 && input == command.Substring(0, splitLength));
+        }
+        
+        /// <summary>
+        /// 处理命令
+        /// </summary>
         static void ProcCommand()
         {
-            string send = "";
-            while (send != "quit")
+            while (true)
             {
-
+                string send = "";
                 Console.ForegroundColor = ConsoleColor.White;
                 OutputSuffix(Dns.GetHostName(), connectList.Count.ToString());
                 send = Console.ReadLine();
+
                 try
                 {
                     InforProc m = new InforProc(send);
-                    
-                    if (m[0] == "quit" && m.Count == 1) //退出
+
+                    if (SimpleCommand(m[0], "quit") && m.Count == 1) //退出
                     {
                         Console.ForegroundColor = ConsoleColor.Red;
                         Console.Write("Are you sure to exit ? It will kill all links. [Y/N]");
                         var result = Console.ReadKey();
+                        Console.WriteLine();
 
-                        if(result.KeyChar == 'Y')
+                        if (result.KeyChar == 'Y')
                             return;
                     }
-                    else if(m[0] == "clear")
+                    else if (SimpleCommand(m[0], "clear") && m.Count == 1)
                     {
                         Console.Clear();
                         OutputHeader();
                         continue;
                     }
-                    else if(m[0] == "help")
+                    else if (SimpleCommand(m[0], "help") && m.Count == 1)
                     {
                         Console.ForegroundColor = ConsoleColor.White;
                         Console.WriteLine("\nJC-Tool 1.4\n");
@@ -192,38 +226,46 @@ namespace JCClient
                         Console.WriteLine();
                         Console.WriteLine("有关 [command] 的写法，请参阅 https://gitee.com/graph-lc/jc-tools\n");
                     }
-                    else if (m[0] == "list")
+                    else if (SimpleCommand(m[0], "list"))
                     {
-                        if(m.Count == 1)
+                        if (m.Count == 1)
                         {
                             int i = 0;
-                            foreach(var iter in connectList)
+                            Console.WriteLine();
+                            foreach (var iter in connectList)
                             {
-                                OutputSuffix("Item = " + i.ToString(), iter.Key, ConsoleColor.Red);
+                                Console.ForegroundColor = ConsoleColor.Green;
+                                Console.Write(iter.Key);
+                                Console.ForegroundColor = ConsoleColor.White;
+                                Console.Write(":");
+                                Console.ForegroundColor = ConsoleColor.DarkYellow;
+                                Console.Write(((IPEndPoint)iter.Value.RemoteEndPoint).Port.ToString());
+                                Console.WriteLine();
                             }
+                            Console.WriteLine();
                         }
-                        else if ((m[1] == "add" || m[1] == "add-ip") && m.Count == 3)
+                        else if (SimpleCommand(m[1], "add") && (m.Count == 3 || m.Count == 4))
                         {
                             Socket s = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
-                            IPEndPoint ipe = new IPEndPoint(IPAddress.Parse(m[2]), 5800);
+                            IPEndPoint ipe = new IPEndPoint(IPAddress.Parse(m[2]), m.Count == 3 ? 5800 : int.Parse(m[3]));
                             s.Connect(ipe);//尝试建立连接
                             connectList.Add(m[2], s);
                         }
-                        else if (m[1] == "add-host" && m.Count == 3)
+                        else if (SimpleCommand(m[1], "add-host", "ah", 0) && (m.Count == 3 || m.Count == 4))
                         {
                             Socket s = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
                             var hostList = Dns.GetHostAddresses(m[2]);
-                            IPEndPoint ipe = new IPEndPoint(hostList[hostList.Length - 1], 5800);
+                            IPEndPoint ipe = new IPEndPoint(hostList[hostList.Length - 1], m.Count == 3 ? 5800 : int.Parse(m[3]));
                             s.Connect(ipe);//尝试建立连接
                             connectList.Add(m[2], s);
                         }
-                        else if (m[1] == "remove" && m.Count == 3)
+                        else if (SimpleCommand(m[1], "remove") && m.Count == 3)
                         {
                             if (connectList[m[2]] != null)
                                 connectList[m[2]].Close();
                             connectList.Remove(m[2]);
                         }
-                        else if (m[1] == "clear" && m.Count == 2)
+                        else if (SimpleCommand(m[1], "clear") && m.Count == 2)
                         {
                             foreach (var item in connectList)
                             {
@@ -232,53 +274,106 @@ namespace JCClient
                             }
                             connectList.Clear();
                         }
+                        else throw new Exception("Unrecognized command");
                     }
-                    else if (m[0] == "send")
+                    else if (SimpleCommand(m[0], "send") && m.Count >= 2)
                     {
+                        Console.WriteLine();
                         string sendString = "";
                         for (int iter = 1; iter < m.Count; ++iter)
-                            sendString += m[iter] + " ";
+                            sendString += "\"" + m[iter] + "\" ";
 
                         foreach (var iter in connectList)
                         {
-                            if (m[1] == "upload" && m.Count == 4)
+                            if (SimpleCommand(m[1], "upload") || SimpleCommand(m[1], "download") || SimpleCommand(m[1], "screen", "", 2))
                             {
-                                Upload(iter.Value, m[2], m[3]);
-                            }
-                            else if(m[1] == "download" && m.Count == 4)
-                            {
-                                Download(iter.Value, m[2], m[3]);
+                                if (m.Count == 4)
+                                {
+                                    if (SimpleCommand(m[1], "upload"))
+                                    {
+                                        Upload(iter.Value, m[2], m[3]);
+                                    }
+                                    else if (SimpleCommand(m[1], "download"))
+                                    {
+                                        Download(iter.Value, m[2], m[3]);
+                                    }
+                                    else if (SimpleCommand(m[1], "screen", "", 2))
+                                    {
+                                        // 格式
+                                        // send screen png/jpg [ScreenFileName]
+                                        Screen(iter.Value, m[2], m[3]);
+                                    }
+                                }
+                                else throw new Exception("Wrong parameter length");
                             }
                             else
                             {
-                                Send(iter.Value, sendString);
+                                TCPSocket.Send(iter.Value, sendString);
                             }
 
-                            OutputSuffix("Recv", iter.Key, ConsoleColor.Red);
-                            Console.WriteLine(Recv(iter.Value));
+                            Console.ForegroundColor = ConsoleColor.Cyan;
+                            Console.Write("  Answer from ");
+                            Console.ForegroundColor = ConsoleColor.Green;
+                            Console.Write(iter.Key);
+                            Console.ForegroundColor = ConsoleColor.White;
+                            Console.Write(" : [Handling...]");
+
+                            string recvString = TCPSocket.Recv(iter.Value);
+                            Console.Write(new string('\b', 13));
+                            Console.Write(new string(' ', 13));
+                            Console.Write(new string('\b', 13));
+                            Console.WriteLine(recvString);
                         }
+                        Console.WriteLine();
                     }
-                    else if (m[0] == "send-server")
+                    else if (SimpleCommand(m[0], "send-server", "sh", 0) && m.Count >= 3)
                     {
+                        Console.WriteLine();
                         string sendString = "";
                         for (int iter = 2; iter < m.Count; ++iter)
-                            sendString += m[iter] + " ";
+                            sendString += "\"" + m[iter] + "\" ";
 
-                        if (m[2] == "upload" && m.Count == 5)
+                        if (SimpleCommand(m[2], "upload") || SimpleCommand(m[2], "download") || SimpleCommand(m[2], "screen", "", 2))
                         {
-                            Upload(connectList[m[1]], m[3], m[4]);
-                        }
-                        else if(m[2] == "download" && m.Count == 5)
-                        {
-                            Download(connectList[m[1]], m[3], m[4]);
+                            if (m.Count == 5)
+                            {
+                                if (SimpleCommand(m[2], "upload"))
+                                {
+                                    Upload(connectList[m[1]], m[3], m[4]);
+                                }
+                                else if (SimpleCommand(m[2], "download"))
+                                {
+                                    Download(connectList[m[1]], m[3], m[4]);
+                                }
+                                else if (SimpleCommand(m[2], "screen", "", 2))
+                                {
+                                    // 格式
+                                    // send-server [host-name] screen png/jpg [ScreenFileName]
+                                    Screen(connectList[m[1]], m[3], m[4]);
+                                }
+                            }
+                            else throw new Exception("Wrong parameter length");
                         }
                         else
                         {
-                            Send(connectList[m[1]], sendString);
+                            TCPSocket.Send(connectList[m[1]], sendString);
                         }
 
-                        OutputSuffix("Recv", m[1], ConsoleColor.Red);
-                        Console.WriteLine(Recv(connectList[m[1]]));
+                        Console.ForegroundColor = ConsoleColor.Cyan;
+                        Console.Write("  Answer from ");
+                        Console.ForegroundColor = ConsoleColor.Green;
+                        Console.Write(m[1]);
+                        Console.ForegroundColor = ConsoleColor.White;
+                        Console.Write(" : [Handling...]");
+
+                        Console.ForegroundColor = ConsoleColor.White;
+                        string recvString = TCPSocket.Recv(connectList[m[1]]);
+                        Console.Write(new string('\b', 13));
+                        Console.Write(new string(' ', 13));
+                        Console.Write(new string('\b', 13));
+                        Console.WriteLine(recvString);
+                        Console.WriteLine();
+
                     }
                     else
                     {

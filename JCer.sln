@@ -7,7 +7,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "JCServer", "JCer\JCServer.c
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "JCClient", "JCClient\JCClient.csproj", "{4A2FB678-2A00-4E9D-90A2-034E671F2B72}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Host", "Host\Host.csproj", "{7342EB31-D738-460A-80D0-A2D7A5469363}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Host", "Host\Host.csproj", "{7342EB31-D738-460A-80D0-A2D7A5469363}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

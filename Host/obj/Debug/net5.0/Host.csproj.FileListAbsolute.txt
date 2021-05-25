@@ -5,7 +5,6 @@ D:\Work\Program\JCer\Host\bin\Debug\net5.0\Host.runtimeconfig.dev.json
 D:\Work\Program\JCer\Host\bin\Debug\net5.0\Host.dll
 D:\Work\Program\JCer\Host\bin\Debug\net5.0\ref\Host.dll
 D:\Work\Program\JCer\Host\bin\Debug\net5.0\Host.pdb
-D:\Work\Program\JCer\Host\obj\Debug\net5.0\Host.csprojAssemblyReference.cache
 D:\Work\Program\JCer\Host\obj\Debug\net5.0\Host.GeneratedMSBuildEditorConfig.editorconfig
 D:\Work\Program\JCer\Host\obj\Debug\net5.0\Host.AssemblyInfoInputs.cache
 D:\Work\Program\JCer\Host\obj\Debug\net5.0\Host.AssemblyInfo.cs

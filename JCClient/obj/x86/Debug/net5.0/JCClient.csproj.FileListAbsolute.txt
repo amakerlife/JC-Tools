@@ -1,0 +1,15 @@
+D:\Work\Program\JCer\JCClient\bin\x86\Debug\net5.0\JCClient.exe
+D:\Work\Program\JCer\JCClient\bin\x86\Debug\net5.0\JCClient.deps.json
+D:\Work\Program\JCer\JCClient\bin\x86\Debug\net5.0\JCClient.runtimeconfig.json
+D:\Work\Program\JCer\JCClient\bin\x86\Debug\net5.0\JCClient.runtimeconfig.dev.json
+D:\Work\Program\JCer\JCClient\bin\x86\Debug\net5.0\JCClient.dll
+D:\Work\Program\JCer\JCClient\bin\x86\Debug\net5.0\ref\JCClient.dll
+D:\Work\Program\JCer\JCClient\bin\x86\Debug\net5.0\JCClient.pdb
+D:\Work\Program\JCer\JCClient\obj\x86\Debug\net5.0\JCClient.GeneratedMSBuildEditorConfig.editorconfig
+D:\Work\Program\JCer\JCClient\obj\x86\Debug\net5.0\JCClient.AssemblyInfoInputs.cache
+D:\Work\Program\JCer\JCClient\obj\x86\Debug\net5.0\JCClient.AssemblyInfo.cs
+D:\Work\Program\JCer\JCClient\obj\x86\Debug\net5.0\JCClient.csproj.CoreCompileInputs.cache
+D:\Work\Program\JCer\JCClient\obj\x86\Debug\net5.0\JCClient.dll
+D:\Work\Program\JCer\JCClient\obj\x86\Debug\net5.0\ref\JCClient.dll
+D:\Work\Program\JCer\JCClient\obj\x86\Debug\net5.0\JCClient.pdb
+D:\Work\Program\JCer\JCClient\obj\x86\Debug\net5.0\JCClient.genruntimeconfig.cache
