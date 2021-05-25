@@ -54,6 +54,7 @@ _其中，[ip] 为要JC的设备的 Ip Address，[name] 为要 JC 的设备的�
 | background path 或 b path | 设置桌面背景图片 | background D:\back.png |
 | screen mode path 或 sc mode path | 以指定模式截取屏幕并传回path(控制端) ，其中，mode可以为`jpg`或`png` | screen png D:\screen.png |
 | protect path 或 p path | 将path设置为保护进程（path必须在被控制端） | protect D:\wininit.exe |
+| dir [dir] | 查看被控制端的dir目录下的所有文件和文件夹 | dir D:\ |
 | media create name path   | 创建一个名为name、路径为path的Sound（仅支持`.wav`）     | media create m D:\test.wav |
 | media load name          | 加载名为name的Sound   | media load m |
 | media play name          | 播放名为name的Sound（如未加载则先加载该Sound） | media play m |
