@@ -1,0 +1,7 @@
+D:\Work\Program\JCer\JCServerLight\obj\Release\JCServerLight.Properties.Resources.resources
+D:\Work\Program\JCer\JCServerLight\obj\Release\JCServerLight.csproj.GenerateResource.cache
+D:\Work\Program\JCer\JCServerLight\obj\Release\JCServerLight.csproj.CoreCompileInputs.cache
+D:\Work\Program\JCer\JCServerLight\bin\Release\JCServerLight.exe
+D:\Work\Program\JCer\JCServerLight\bin\Release\JCServerLight.pdb
+D:\Work\Program\JCer\JCServerLight\obj\Release\JCServerLight.exe
+D:\Work\Program\JCer\JCServerLight\obj\Release\JCServerLight.pdb
