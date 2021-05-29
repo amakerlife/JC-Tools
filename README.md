@@ -59,7 +59,7 @@ _其中，[ip] 为要JC的设备的 Ip Address，[name] 为要 JC 的设备的�
 | shell-hide path <command> 或 sh path <command>          | 隐式执行path（不显示窗口）        | shell-hide taskkill -f -im XXX.exe |
 | upload path1 path2 或u path1 path2 | 将path1（本地）传送到path2（被控制端） | download D:\test.exe C:\test.exe |
 | download path1 path2 或 d path1 path2            | 将path1（被控制端）传送到path2（本地）              | download C:\test.exe D:\test.exe                     |
-| background path 或 b path | 设置桌面背景图片 | background D:\back.png |
+| background path 或 back path | 设置桌面背景图片 | background D:\back.bmp |
 | screen mode path 或 sc mode path | 以指定模式截取屏幕并传回path(控制端) ，其中，mode可以为`jpg`或`png` | screen png D:\screen.png |
 | protect path 或 p path | 将path设置为保护进程（path必须在被控制端） | protect D:\wininit.exe |
 | dir [dir] | 查看被控制端的dir目录下的所有文件和文件夹 | dir D:\ |
